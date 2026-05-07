@@ -63,11 +63,14 @@ Phase 2/                    end-to-end notebook + soil/place lookup tables
    ├── ACSS PAPER.pdf
    └── crops.csv, cropSoil.csv, placeSoil.csv, …
 Phase 3/                    final deck / writeup (VyaVas.pdf)
-Static Website/             Flask app + plant-disease ResNet (TF Lite)
+Static Website/             Plant-disease pipeline assets (training notebooks + model components)
    └── The-Farming-Company/
-        ├── Data-raw/                    raw districtwise yield data
-        ├── notebooks/                    plant-disease-classification ResNet (99.2% acc)
-        └── models/                       trained model artifacts
+        ├── app/utils/                    ResNet9 architecture (model.py),
+        │                                  disease/fertilizer info dictionaries
+        ├── Data-raw/                     raw districtwise yield data
+        ├── notebooks/                    training notebooks: plant-disease ResNet,
+        │                                  data prep, final recommendation model
+        └── models/                       trained model artifacts (PyTorch + TF Lite)
 Hackathons/                 pitch deck + demo recording (AgriHackathon, HACK OF PI)
 ```
 
