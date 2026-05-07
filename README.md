@@ -23,13 +23,25 @@ An ML-driven crop suggestion system that takes a farmer's location, pulls histor
             │
    (parallel)
             ▼
-   leaf image upload  → ResNet plant-disease classifier (~99% acc on test split)
+   leaf image upload  → ResNet plant-disease classifier (separate notebook)
 ```
 
 Two ML problems, one product:
 
-1. **Crop recommendation** — given soil chemistry + climate, classify which crop is most suitable. Models compared in `Phase 1/`: Decision Tree, Naive Bayes, Random Forest, XGBoost.
-2. **Plant disease detection** — given a leaf photo, classify healthy vs. diseased. ResNet-based CNN, served via TensorFlow Lite for mobile deployment (`Static Website/The-Farming-Company/notebooks/`).
+1. **Crop recommendation** — given soil chemistry + climate, classify which crop is most suitable. Six classifiers compared in `Phase 1/Crop Recommendation.ipynb` on a 440-sample held-out split:
+
+   | Classifier | Accuracy |
+   |---|---|
+   | XGBoost | **99.32%** |
+   | Naive Bayes | 99.09% |
+   | Random Forest | 99.09% |
+   | Logistic Regression | 95.23% |
+   | Decision Tree | 90.00% |
+   | SVM | 10.68% (no feature scaling) |
+
+   **XGBoost** ships as the recommendation model. The dataset is well-separated by N/P/K + climate features, which is why most non-linear classifiers cluster near 99%; SVM's collapse is the canonical "linear kernel without scaling" failure — kept in the comparison as a deliberate negative result.
+
+2. **Plant disease detection** — given a leaf photo, classify healthy vs. diseased. Separate ResNet-based CNN training pipeline in `Static Website/The-Farming-Company/notebooks/plant-disease-classification-resnet-99-2.ipynb`, served via TensorFlow Lite for mobile deployment. The two ML pipelines are **independent**, not glued in code — the product wraps both behind a Flask UI.
 
 ## Tech stack
 
